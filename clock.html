@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="js clock">
+		<meta name="author" content="John Davis">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Clock</title>
+
+		<style>
+			html {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: black;
+			}
+			body {
+				margin: 0;
+				padding: 0;
+				color: yellow;
+				font-size: 30px;
+				font-family: "Courier New", Courier, monospace;
+				text-align: center;
+			}
+		</style>
+
+		<script>
+			/**
+			function updateAge() {
+				let time = new Date();
+				let years = time.getFullYear() - 1997;
+				let months = time.getMonth() - 5;
+				if (months < 0) {
+					months += 13;
+					years -= 1;
+				}
+				let days = time.getDate() - 10;
+				if (days < 0) {
+					let rem = time.getMonth() % 2;
+					if (time.getMonth() == 2)
+						days += 28
+					else if (rem)
+						days += 30;
+					else
+						days += 31;
+					months -= 1;
+				}
+				let hours = time.getHours();
+				let minutes = time.getMinutes();
+				// Text translation
+				let age = `${years} years, ${months} months, ${days} days, ${hours} hours, and ${minutes} minutes old`;
+				let greeting = "My name is John and my age is " + age;
+				//console.log(greeting);
+				document.body.innerHTML = greeting;
+			}
+			*/
+
+			// left pads a given number to a given number of digits
+			function pad(input, digits) {
+				if (digits >= 2) {
+					let temp = input.toString().split("");
+					let len = temp.length;
+					if (len > digits)
+						temp = '?';
+					else
+						for (i = 0; i < digits - len; i++)
+							temp.unshift("0");
+					return temp.join("");
+				}
+				else
+					return '?';
+			}
+
+			/**
+			var parser = new DOMParser();
+			function timeDotGov() {
+				doc = parser.parseFromString("https://www.time.gov/", "text/html");
+				console.log(doc.body);
+			}
+			*/
+
+			function updateTime() {
+				let time = new Date();
+				let hour = time.getHours();
+				let night = hour > 12;
+				if (night)
+					hour -= 12;
+				let min  = time.getMinutes();
+				let sec  = time.getSeconds();
+				let display = `${pad(hour, 2)}:${pad(min, 2)}:${pad(sec, 2)} ${night ? "PM" : "AM"}`;
+				//console.log(display);
+				document.body.innerHTML = display;
+			}
+			setInterval(updateTime, 1000);
+		</script>
+	</head>
+	<body></body>
+</html>
